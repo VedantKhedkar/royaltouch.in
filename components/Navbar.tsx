@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getImagePath, BRAND_ASSETS } from "@/lib/media";
-import { X, Menu, ChevronDown, ChevronRight } from "lucide-react"; 
+import { X, Menu, ChevronDown } from "lucide-react"; 
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // State for mobile accordions
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export default function Navbar() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
-      setExpandedSection(null); // Reset accordions when closed
+      setExpandedSection(null);
     }
   }, [isMobileMenuOpen]);
 
@@ -54,16 +52,17 @@ export default function Navbar() {
 
   return (
     <>
+      {/* NAVBAR */}
       <nav
-        className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
+        className={`fixed top-3 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] transition-all duration-500 rounded-2xl ${
           isScrolled
-            ? "bg-royal-purple/95 backdrop-blur-lg py-2 shadow-2xl border-b border-royal-gold/20"
-            : "bg-transparent py-5"
+            ? "bg-royal-purple/95 backdrop-blur-lg py-2 shadow-2xl border border-royal-gold/20"
+            : "bg-royal-purple/50 backdrop-blur-md md:bg-transparent md:backdrop-blur-0 py-4 md:py-5 border border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="px-6 flex items-center justify-between">
           
-          {/* Logo Section */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-4 group">
             <div className="w-12 h-12 md:w-15 md:h-16 relative overflow-hidden flex items-center justify-center transition-transform group-hover:scale-105">
               <img
@@ -74,24 +73,24 @@ export default function Navbar() {
               />
             </div>
 
-            <div className="flex flex-col" >
+            <div className="flex flex-col">
               <span className="text-royal-gold font-serif font-extrabold text-xl md:text-3xl leading-none tracking-tighter transition-colors group-hover:text-royal-yellow">
                 ROYAL TOUCH
               </span>
               <span className="text-white text-[8px] md:text-[9px] tracking-[0.5em] uppercase opacity-90 font-medium group-hover:opacity-100 transition-opacity ml-0.5">
-                  Beauty Care & Academy
+                Beauty Care & Academy
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] transition-all relative group">
               HOME
               <span className="absolute -bottom-1 left-1/2 w-0 h-[1.5px] bg-royal-gold transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
 
-            {/* Desktop Services Dropdown */}
+            {/* Services */}
             <div className="relative group py-4">
               <Link href="/services" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] flex items-center gap-1 transition-all">
                 SERVICES <span className="text-[8px] opacity-50">▼</span>
@@ -105,7 +104,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Desktop Academy Dropdown */}
+            {/* Academy */}
             <div className="relative group py-4">
               <Link href="/academy" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] flex items-center gap-1 transition-all">
                 ACADEMY <span className="text-[8px] opacity-50">▼</span>
@@ -119,7 +118,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Desktop Gallery Dropdown */}
+            {/* Gallery */}
             <div className="relative group py-4">
               <Link href="/gallery" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] flex items-center gap-1 transition-all">
                 GALLERY <span className="text-[8px] opacity-50">▼</span>
@@ -144,10 +143,10 @@ export default function Navbar() {
 
             <button className="relative overflow-hidden bg-royal-gold text-royal-purple px-7 py-2.5 rounded-full text-[10px] font-black tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95 group">
               <span className="relative z-10 uppercase">Enroll Now</span>
-              <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 skew-x-12"></div>
             </button>
           </div>
 
+          {/* Mobile Button */}
           <button
             className="md:hidden text-royal-gold p-2 z-[110] relative"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -158,89 +157,99 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* --- Modern Sidebar Mobile Menu --- */}
+      {/* Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[101] transition-opacity duration-500 md:hidden ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[101] transition-opacity duration-500 md:hidden ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
-      <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-royal-purple z-[102] shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform transition-transform duration-500 ease-out md:hidden border-l border-royal-gold/10 ${
-        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+      {/* Mobile Sidebar */}
+      <div className={`fixed top-3 right-3 bottom-3 w-[85%] max-w-sm bg-royal-purple/90 backdrop-blur-xl z-[102] shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform transition-transform duration-500 ease-out md:hidden border border-royal-gold/10 rounded-2xl ${
+        isMobileMenuOpen ? "translate-x-0" : "translate-x-[110%]"
       }`}>
-        <div className="flex flex-col h-full overflow-y-auto pt-24 pb-10 px-8">
-          
+        <div className="flex flex-col h-full overflow-y-auto pt-4 pb-8 px-8">
+
+          {/* ===== Sidebar Header (Logo + Close) ===== */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <img
+                src={getImagePath(BRAND_ASSETS.LOGO)}
+                alt="Royal Touch Logo"
+                className="w-10 h-10 object-contain"
+              />
+              <span className="text-royal-gold font-serif font-bold text-lg">
+                Royal Touch
+              </span>
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-royal-gold p-2"
+              aria-label="Close Menu"
+            >
+              <X size={24} />
+            </button>
+          </div>
+
           <div className="space-y-6">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif text-white border-b border-white/5 pb-4">
               Home
             </Link>
 
-            {/* SERVICES Accordion */}
+            {/* SERVICES */}
             <div className="border-b border-white/5 pb-4">
               <div className="flex items-center justify-between">
                 <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-serif text-white">Services</Link>
-                <button 
-                  onClick={() => toggleSection('services')} 
-                  className="p-2 text-royal-gold"
-                  aria-label="Toggle Services Submenu"
-                >
-                   <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === 'services' ? 'rotate-180' : ''}`} />
+                <button onClick={() => toggleSection("services")} className="p-2 text-royal-gold">
+                  <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === "services" ? "rotate-180" : ""}`} />
                 </button>
               </div>
-              <div className={`grid transition-all duration-300 ease-in-out ${expandedSection === 'services' ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
+              <div className={`grid transition-all duration-300 ${expandedSection === "services" ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden space-y-3 pl-4 border-l border-royal-gold/20">
-                    {menuData.services.map(item => (
-                      <Link key={item.id} href={`/services#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base font-light tracking-wide py-1">
-                        {item.name}
-                      </Link>
-                    ))}
+                  {menuData.services.map(item => (
+                    <Link key={item.id} href={`/services#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base py-1">
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* ACADEMY Accordion */}
+            {/* ACADEMY */}
             <div className="border-b border-white/5 pb-4">
               <div className="flex items-center justify-between">
                 <Link href="/academy" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-serif text-white">Academy</Link>
-                <button 
-                  onClick={() => toggleSection('academy')} 
-                  className="p-2 text-royal-gold"
-                  aria-label="Toggle Academy Submenu"
-                >
-                   <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === 'academy' ? 'rotate-180' : ''}`} />
+                <button onClick={() => toggleSection("academy")} className="p-2 text-royal-gold">
+                  <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === "academy" ? "rotate-180" : ""}`} />
                 </button>
               </div>
-              <div className={`grid transition-all duration-300 ease-in-out ${expandedSection === 'academy' ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
+              <div className={`grid transition-all duration-300 ${expandedSection === "academy" ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden space-y-3 pl-4 border-l border-royal-gold/20">
-                    {menuData.academy.map(item => (
-                      <Link key={item.id} href={`/academy#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base font-light tracking-wide py-1">
-                        {item.name}
-                      </Link>
-                    ))}
+                  {menuData.academy.map(item => (
+                    <Link key={item.id} href={`/academy#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base py-1">
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* GALLERY Accordion */}
+            {/* GALLERY */}
             <div className="border-b border-white/5 pb-4">
               <div className="flex items-center justify-between">
                 <Link href="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-serif text-white">Gallery</Link>
-                <button 
-                  onClick={() => toggleSection('gallery')} 
-                  className="p-2 text-royal-gold"
-                  aria-label="Toggle Gallery Submenu"
-                >
-                   <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === 'gallery' ? 'rotate-180' : ''}`} />
+                <button onClick={() => toggleSection("gallery")} className="p-2 text-royal-gold">
+                  <ChevronDown size={20} className={`transition-transform duration-300 ${expandedSection === "gallery" ? "rotate-180" : ""}`} />
                 </button>
               </div>
-              <div className={`grid transition-all duration-300 ease-in-out ${expandedSection === 'gallery' ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
+              <div className={`grid transition-all duration-300 ${expandedSection === "gallery" ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden space-y-3 pl-4 border-l border-royal-gold/20">
-                    {menuData.gallery.map(item => (
-                      <Link key={item} href={`/gallery?category=${encodeURIComponent(item.toUpperCase())}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base font-light tracking-wide py-1">
-                        {item}
-                      </Link>
-                    ))}
+                  {menuData.gallery.map(item => (
+                    <Link key={item} href={`/gallery?category=${encodeURIComponent(item.toUpperCase())}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base py-1">
+                      {item}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
@@ -258,6 +267,7 @@ export default function Navbar() {
               Royal Touch Beauty Care
             </p>
           </div>
+
         </div>
       </div>
     </>

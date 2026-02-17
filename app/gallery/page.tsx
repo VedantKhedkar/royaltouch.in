@@ -1,0 +1,184 @@
+"use client";
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Plus, Camera } from "lucide-react";
+
+// --- TYPES & DATA ---
+type GalleryImage = { id: number; url: string; title: string; orientation?: 'landscape' | 'portrait' };
+type GalleryData = Record<string, GalleryImage[]>;
+
+const galleryData: GalleryData = {
+  "TRANSFORMATIONS": [
+    { id: 101, url: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1000", title: "Dewy Skin Finish" },
+    { id: 102, url: "https://images.unsplash.com/photo-1595476108010-b4d1f80d77d2?q=80&w=1000", title: "Evening Glamour" },
+    { id: 103, url: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1000", title: "Soft Occasion Look", orientation: 'landscape' },
+    { id: 104, url: "https://images.unsplash.com/photo-1503236123135-083567c9033b?q=80&w=1000", title: "Matte Elegance" },
+    { id: 105, url: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1000", title: "Smokey Eyes", orientation: 'landscape' },
+    { id: 106, url: "https://images.unsplash.com/photo-1526045431048-f857369aba09?q=80&w=1000", title: "Natural Glow" }
+  ],
+  "ROYAL BRIDAL": [
+    { id: 201, url: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1000", title: "The Maharani Bride" },
+    { id: 202, url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1000", title: "Traditional Heritage", orientation: 'landscape' },
+    { id: 203, url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?q=80&w=1000", title: "Classic Red Bridal" },
+    { id: 204, url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000", title: "Modern Nude Bridal" },
+    { id: 205, url: "https://images.unsplash.com/photo-1604548628005-950274f83b1a?q=80&w=1000", title: "Golden Hour Glow", orientation: 'landscape' },
+    { id: 206, url: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1000", title: "The Royal Veil" }
+  ],
+  "GLAMOUR & PARTY": [
+    { id: 301, url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000", title: "Cocktail Party Glam", orientation: 'landscape' },
+    { id: 302, url: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1000", title: "Celebration Sparkle" },
+    { id: 303, url: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1000", title: "Red Carpet Ready" },
+    { id: 304, url: "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1000", title: "Bold & Beautiful", orientation: 'landscape' },
+    { id: 305, url: "https://images.unsplash.com/photo-1522338223523-decac27515c3?q=80&w=1000", title: "High-Fashion Look" },
+    { id: 306, url: "https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=1000", title: "Street Style Glam" }
+  ],
+  "ACADEMY LIFE": [
+    { id: 401, url: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1000", title: "Studio Masterclass" },
+    { id: 402, url: "https://images.unsplash.com/photo-1522338223523-decac27515c3?q=80&w=1000", title: "Technique Training", orientation: 'landscape' },
+    { id: 403, url: "https://images.unsplash.com/photo-1471333027242-0f605f98c857?q=80&w=1000", title: "Student Artistry" },
+    { id: 404, url: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1000", title: "Theory Session", orientation: 'landscape' },
+    { id: 405, url: "https://images.unsplash.com/photo-1526045431048-f857369aba09?q=80&w=1000", title: "Live Demos" },
+    { id: 406, url: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1000", title: "Certification Day" }
+  ],
+  "HAIR DESIGN": [
+    { id: 501, url: "https://images.unsplash.com/photo-1560869713-7d0a29430863?q=80&w=1000", title: "Floral Bridal Bun", orientation: 'landscape' },
+    { id: 502, url: "https://images.unsplash.com/photo-1595476108010-b4d1f80d77d2?q=80&w=1000", title: "Hollywood Waves" },
+    { id: 503, url: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=1000", title: "Messy Textures" },
+    { id: 504, url: "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?q=80&w=1000", title: "Sleek High Pony", orientation: 'landscape' },
+    { id: 505, url: "https://images.unsplash.com/photo-1620331311520-246422fd82f9?q=80&w=1000", title: "Intricate Braids" },
+    { id: 506, url: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1000", title: "Classic Updos" }
+  ]
+};
+
+const categories = ["TRANSFORMATIONS", "ROYAL BRIDAL", "GLAMOUR & PARTY", "ACADEMY LIFE", "HAIR DESIGN", "VIEW ALL"];
+
+// --- CONTENT COMPONENT ---
+function GalleryContent() {
+  const searchParams = useSearchParams();
+  const categoryQuery = searchParams.get('category');
+  
+  const [active, setActive] = useState("VIEW ALL");
+  const [displayImages, setDisplayImages] = useState<GalleryImage[]>([]);
+
+  useEffect(() => {
+    if (categoryQuery) {
+      const decoded = decodeURIComponent(categoryQuery).toUpperCase();
+      if (categories.includes(decoded)) {
+        setActive(decoded);
+      }
+    }
+  }, [categoryQuery]);
+
+  useEffect(() => {
+    if (active === "VIEW ALL") {
+      const allImages = Object.values(galleryData).flat() as GalleryImage[];
+      setDisplayImages(allImages);
+    } else {
+      setDisplayImages(galleryData[active] || []);
+    }
+  }, [active]);
+
+  return (
+    <>
+      {/* --- HERO SECTION --- */}
+      <section className="relative h-[65vh] landscape:h-[80vh] flex items-center px-6 overflow-hidden bg-royal-purple">
+        <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 scale-105"
+          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1200')` }}
+        />
+        {/* Adjusted padding-top to move text lower */}
+        <div className="max-w-7xl mx-auto relative z-10 w-full text-center pt-24 md:pt-32">
+          <span className="text-royal-gold tracking-[0.8em] text-[10px] md:text-[12px] font-sans font-black uppercase block mb-6 drop-shadow-md">
+            Established 2018
+          </span>
+          <h1 className="text-white text-5xl md:text-[6rem] lg:text-[8rem] font-serif leading-[0.9] uppercase tracking-tighter drop-shadow-lg">
+            The <br /> <span className="text-royal-gold ml-0 md:ml-32">Portfolio</span>
+          </h1>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#FAFAFA] to-transparent z-10" />
+      </section>
+
+      {/* --- FILTER BAR --- */}
+      <section className="py-12 md:py-20 px-4 md:px-6 max-w-7xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-10 gap-y-4 mb-16 border-b border-slate-200 pb-8 overflow-x-auto no-scrollbar">
+          {categories.map(cat => (
+            <button 
+              key={cat}
+              onClick={() => setActive(cat)}
+              className={`text-[10px] md:text-[12px] font-sans font-black tracking-[0.3em] transition-all duration-300 uppercase relative pb-4 whitespace-nowrap ${
+                active === cat ? 'text-royal-purple' : 'text-slate-400 hover:text-royal-purple'
+              }`}
+            >
+              {cat}
+              {active === cat && (
+                <div className="absolute bottom-[-1px] left-0 w-full h-0.5 bg-royal-gold" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* --- DYNAMIC SECTION HEADING --- */}
+        <div className="mb-12 px-2">
+            <h2 className="text-royal-purple font-serif text-4xl md:text-6xl uppercase tracking-tighter transition-all duration-700">
+                {active === "VIEW ALL" ? "Masterpiece Collection" : active}
+                <span className="text-royal-gold block text-[11px] md:text-[13px] font-sans font-black tracking-[0.6em] mt-4 uppercase">
+                    Redefining Elegance
+                </span>
+            </h2>
+        </div>
+
+        {/* --- IMAGE GRID (Optimized for Landscape) --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {displayImages.map((img) => (
+            <div 
+              key={img.id} 
+              className={`group relative rounded-2xl overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-700 hover:-translate-y-3
+                ${img.orientation === 'landscape' ? 'sm:col-span-2 lg:col-span-1 aspect-video lg:aspect-[4/5]' : 'aspect-[4/5]'}`}
+            >
+              <img 
+                src={img.url} 
+                alt={img.title} 
+                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
+              />
+              
+              {/* Luxury Hover Overlay */}
+              <div className="absolute inset-0 bg-royal-purple/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 md:p-10 text-center backdrop-blur-md">
+                <Camera className="text-royal-gold w-6 h-6 md:w-8 md:h-8 mb-4 md:mb-6" />
+                <h3 className="text-white font-serif text-2xl md:text-3xl uppercase mb-2 md:mb-3 leading-tight">
+                  {img.title}
+                </h3>
+                <div className="w-10 md:w-12 h-px bg-royal-gold/40 mb-6 md:mb-8" />
+                <div className="flex items-center gap-2 md:gap-3 text-royal-gold text-[9px] md:text-[10px] font-sans font-black tracking-widest uppercase">
+                   Royal Artistry <Plus className="w-3 h-3" />
+                </div>
+              </div>
+
+              {/* Tag below image on hover */}
+              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6 p-3 md:p-4 bg-white/95 backdrop-blur shadow-xl translate-y-[160%] group-hover:translate-y-0 transition-transform duration-500 rounded-lg">
+                 <p className="text-royal-purple font-sans font-black text-[9px] md:text-[10px] tracking-widest uppercase text-center">Amravati Studio</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+// --- MAIN PAGE COMPONENT ---
+export default function GalleryPage() {
+  return (
+    <div className="bg-[#FAFAFA] min-h-screen selection:bg-royal-purple selection:text-white font-sans overflow-x-hidden">
+      <Navbar />
+      <Suspense fallback={
+        <div className="h-screen bg-royal-purple flex items-center justify-center text-royal-gold font-serif text-2xl uppercase tracking-widest animate-pulse">
+          Loading Portfolio...
+        </div>
+      }>
+        <GalleryContent />
+      </Suspense>
+      <Footer />
+    </div>
+  );
+}

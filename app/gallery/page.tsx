@@ -3,7 +3,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Plus, Camera } from "lucide-react";
+import { Plus, Camera, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // --- TYPES & DATA ---
 type GalleryImage = { id: number; url: string; title: string; orientation?: 'landscape' | 'portrait' };
@@ -52,15 +53,15 @@ const galleryData: GalleryData = {
   ]
 };
 
-const categories = ["TRANSFORMATIONS", "ROYAL BRIDAL", "GLAMOUR & PARTY", "ACADEMY LIFE", "HAIR DESIGN", "VIEW ALL"];
+const categories = ["VIEW ALL", "TRANSFORMATIONS", "ROYAL BRIDAL", "GLAMOUR & PARTY", "ACADEMY LIFE", "HAIR DESIGN"];
 
-// --- CONTENT COMPONENT ---
 function GalleryContent() {
   const searchParams = useSearchParams();
   const categoryQuery = searchParams.get('category');
   
   const [active, setActive] = useState("VIEW ALL");
   const [displayImages, setDisplayImages] = useState<GalleryImage[]>([]);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   useEffect(() => {
     if (categoryQuery) {
@@ -87,7 +88,6 @@ function GalleryContent() {
         <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 scale-105"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1200')` }}
         />
-        {/* Adjusted padding-top to move text lower */}
         <div className="max-w-7xl mx-auto relative z-10 w-full text-center pt-24 md:pt-32">
           <span className="text-royal-gold tracking-[0.8em] text-[10px] md:text-[12px] font-sans font-black uppercase block mb-6 drop-shadow-md">
             Established 2018
@@ -128,45 +128,75 @@ function GalleryContent() {
             </h2>
         </div>
 
-        {/* --- IMAGE GRID (Optimized for Landscape) --- */}
+        {/* --- IMAGE GRID --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {displayImages.map((img) => (
             <div 
               key={img.id} 
-              className={`group relative rounded-2xl overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-700 hover:-translate-y-3
+              onClick={() => setSelectedImg(img.url)}
+              className={`group relative rounded-2xl overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-700 cursor-pointer
                 ${img.orientation === 'landscape' ? 'sm:col-span-2 lg:col-span-1 aspect-video lg:aspect-[4/5]' : 'aspect-[4/5]'}`}
             >
+              {/* Image: Zoom/Fade effects removed for stability */}
               <img 
                 src={img.url} 
                 alt={img.title} 
-                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
+                className="w-full h-full object-cover transition-transform duration-700" 
               />
               
-              {/* Luxury Hover Overlay */}
-              <div className="absolute inset-0 bg-royal-purple/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 md:p-10 text-center backdrop-blur-md">
-                <Camera className="text-royal-gold w-6 h-6 md:w-8 md:h-8 mb-4 md:mb-6" />
-                <h3 className="text-white font-serif text-2xl md:text-3xl uppercase mb-2 md:mb-3 leading-tight">
-                  {img.title}
-                </h3>
-                <div className="w-10 md:w-12 h-px bg-royal-gold/40 mb-6 md:mb-8" />
-                <div className="flex items-center gap-2 md:gap-3 text-royal-gold text-[9px] md:text-[10px] font-sans font-black tracking-widest uppercase">
-                   Royal Artistry <Plus className="w-3 h-3" />
+              {/* Central View Button */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none">
+                <div className="bg-white/95 backdrop-blur-md text-royal-purple px-6 py-3 rounded-full flex items-center gap-3 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="text-[10px] font-black uppercase tracking-widest">View Transformation</span>
+                  <div className="w-8 h-8 rounded-full bg-royal-gold flex items-center justify-center text-royal-purple">
+                     <Plus size={14} />
+                  </div>
                 </div>
               </div>
 
+              {/* Bottom Gradient Overlay */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
               {/* Tag below image on hover */}
-              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6 p-3 md:p-4 bg-white/95 backdrop-blur shadow-xl translate-y-[160%] group-hover:translate-y-0 transition-transform duration-500 rounded-lg">
-                 <p className="text-royal-purple font-sans font-black text-[9px] md:text-[10px] tracking-widest uppercase text-center">Amravati Studio</p>
+              <div className="absolute bottom-4 left-4 right-4 p-4 bg-white/95 backdrop-blur shadow-xl translate-y-[160%] group-hover:translate-y-0 transition-transform duration-500 rounded-lg z-20">
+                 <p className="text-royal-purple font-sans font-black text-[9px] tracking-widest uppercase text-center">Amravati Studio • {img.title}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
+
+      {/* --- FULLSCREEN LIGHTBOX --- */}
+      <AnimatePresence>
+        {selectedImg && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-royal-purple/98 backdrop-blur-2xl flex items-center justify-center p-4 md:p-12"
+            onClick={() => setSelectedImg(null)}
+          >
+            <button className="absolute top-8 right-8 text-white/50 hover:text-royal-gold transition-colors z-[210]">
+              <X size={40} strokeWidth={1} />
+            </button>
+            <motion.div 
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="relative max-w-5xl w-full h-full flex items-center justify-center"
+            >
+              <img src={selectedImg} alt="Full Preview" className="max-w-full max-h-full object-contain shadow-2xl rounded-lg" />
+              <div className="absolute -bottom-8 text-center w-full">
+                 <p className="text-royal-gold/40 text-[9px] font-black tracking-[0.8em] uppercase">Royal Touch Artistry • Amravati</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
 
-// --- MAIN PAGE COMPONENT ---
 export default function GalleryPage() {
   return (
     <div className="bg-[#FAFAFA] min-h-screen selection:bg-royal-purple selection:text-white font-sans overflow-x-hidden">

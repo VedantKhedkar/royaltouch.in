@@ -28,6 +28,7 @@ export const getImagePath = (id: string): string => {
 export const BRAND_ASSETS = {
   // Your specific logo filename from Bizonance
   LOGO:
+  
         "1770979428723-rtbac.png",
   //    "1770980700100-LOGOroyal.png",
   //    "1770980095941-rtbca5.png",

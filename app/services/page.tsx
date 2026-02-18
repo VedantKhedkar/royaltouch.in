@@ -38,23 +38,20 @@ export default function ServicesPage() {
     <div className="bg-white min-h-screen selection:bg-royal-purple selection:text-white font-sans overflow-x-hidden">
       <Navbar />
 
-      {/* --- HERO SECTION: OPTIMIZED FOR LANDSCAPE & TEXT POSITIONING --- */}
+      {/* --- HERO SECTION --- */}
       <section 
         id="welcome" 
         className="relative h-[90vh] landscape:h-[110vh] flex items-end md:items-center px-6 overflow-hidden bg-royal-purple pb-12 md:pb-0"
       >
-        {/* Background Image with Scale Effect */}
         <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-[3000ms] scale-110 hover:scale-105"
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-[3000ms] scale-110"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2074&auto=format&fit=crop')` }}
         >
-          {/* Layered Overlays for Text Protection */}
           <div className="absolute inset-0 bg-gradient-to-r from-royal-purple via-royal-purple/70 to-transparent" />
           <div className="absolute inset-0 bg-black/10" />
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10 w-full">
-          {/* pt-32 md:pt-48 pushes the content lower to avoid navbar overlap */}
           <div className="flex flex-col gap-4 pt-40 pb-10 md:pt-56">
             <span className="text-royal-gold tracking-[0.6em] text-[10px] md:text-[12px] font-black uppercase mb-2 block drop-shadow-md">
                 Premium Salon Experience
@@ -69,14 +66,10 @@ export default function ServicesPage() {
                <p className="text-white/80 max-w-sm text-[11px] md:text-[12px] uppercase tracking-[0.1em] leading-loose font-medium">
                  Professional Salon Services based in Amravati, specializing in Royal Bridal and High-Fashion Aesthetics.
                </p>
-               
-               {/* MODERN GHOST BUTTON */}
-               
             </div>
           </div>
         </div>
 
-        {/* Signature Bottom Separator */}
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent z-10" />
       </section>
 
@@ -89,15 +82,15 @@ export default function ServicesPage() {
               id={service.sectionId}
               className={`flex flex-col lg:flex-row gap-16 items-start mb-48 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
             >
-              {/* Visual Card with Deep Shadows */}
-              <div className="w-full lg:w-1/2 aspect-square bg-royal-purple relative overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.15)] rounded-2xl">
+              {/* Visual Card - Removed pointer and hover zoom */}
+              <div className="w-full lg:w-1/2 aspect-square bg-royal-purple relative overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.15)] rounded-2xl cursor-default">
                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/5 font-serif text-[15vw] lg:text-[12vw] select-none uppercase tracking-tighter transition-all duration-1000 group-hover:scale-110">
+                    <span className="text-white/5 font-serif text-[15vw] lg:text-[12vw] select-none uppercase tracking-tighter transition-all duration-1000">
                         {service.id}
                     </span>
                  </div>
-                 <div className="absolute top-10 left-10 w-px h-20 bg-royal-gold/40 group-hover:h-32 transition-all duration-700" />
-                 <div className="absolute inset-0 bg-royal-gold opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                 <div className="absolute top-10 left-10 w-px h-20 bg-royal-gold/40 transition-all duration-700" />
+                 <div className="absolute inset-0 bg-royal-gold opacity-0 transition-opacity duration-500" />
               </div>
 
               {/* Text Information */}

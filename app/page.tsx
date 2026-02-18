@@ -16,12 +16,12 @@ export default function LandingPage() {
         <Hero />
 
         {/* 2. TRUST / BRAND STATEMENT */}
-        <section className="py-20 md:py-40 bg-white px-6">
+        <section className="py-20 md:py-10 bg-white px-6">
           <div className="max-w-6xl mx-auto text-center">
-            <span className="text-[10px] tracking-[0.4em] uppercase text-royal-gold font-bold">
+            <span className="text-[18px] tracking-[0.4em] uppercase text-royal-yellow font-bold">
               Since 2016
             </span>
-            <h2 className="mt-6 md:mt-8 text-3xl md:text-6xl font-serif text-royal-purple leading-tight md:leading-tight">
+            <h2 className="mt-6 md:mt- text-3xl md:text-6xl font-serif text-royal-purple leading-tight md:leading-tight">
               A luxury destination for{" "}
               <span className="italic text-royal-gold">beauty transformations</span>{" "}
               and <span className="italic">professional artistry</span>.

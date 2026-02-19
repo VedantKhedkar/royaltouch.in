@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -33,14 +32,25 @@ export default function Navbar() {
 
   const menuData = {
     services: [
-      { name: "Bridal Makeover", id: "bridal" },
-      { name: "Party Makeup", id: "party" },
-      { name: "Hairstyling", id: "hair" }
+      { name: "Makeup Services", id: "makeup" },
+      { name: "Skin Care & Facials", id: "facials" },
+      { name: "Advanced Skin Clinic", id: "advanced-skin" },
+      { name: "Hair Studio", id: "hair" },
+      { name: "Scalp Therapy", id: "hair-scalp" },
+      { name: "Hand & Foot Care", id: "hand-foot" },
+      { name: "Nail Artistry", id: "nails" },
+      { name: "Hair Removal", id: "waxing" },
+      { name: "Eye & Brow", id: "eye-brow" },
+      { name: "Bridal Packages", id: "bridal-pkg" },
+      { name: "Special Treatments", id: "special" }
     ],
     academy: [
-      { name: "Pro Courses", id: "courses" },
-      { name: "Certifications", id: "certification" },
-      { name: "Workshops", id: "masterclass" }
+      { name: "All Courses", id: "courses" },
+      { name: "Beautician & Skin", id: "curriculum" },
+      { name: "Makeup Artistry", id: "curriculum" },
+      { name: "Hair & Design", id: "curriculum" },
+      { name: "Certification", id: "certification" },
+      { name: "Apply Online", id: "enroll" }
     ],
     gallery: [
       "Transformations", 
@@ -96,7 +106,7 @@ export default function Navbar() {
               <Link href="/services" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] flex items-center gap-1 transition-all">
                 SERVICES <span className="text-[8px] opacity-50">▼</span>
               </Link>
-              <div className="absolute top-full left-0 w-48 bg-royal-purple/95 backdrop-blur-xl border border-royal-gold/20 rounded-xl shadow-2xl p-2 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+              <div className="absolute top-full left-0 w-56 bg-royal-purple/95 backdrop-blur-xl border border-royal-gold/20 rounded-xl shadow-2xl p-2 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 max-h-[70vh] overflow-y-auto">
                 {menuData.services.map((item) => (
                   <Link key={item.id} href={`/services#${item.id}`} className="block px-4 py-2 text-[10px] text-white hover:bg-white/10 hover:text-royal-gold rounded-lg transition-all tracking-widest font-bold">
                     {item.name.toUpperCase()}
@@ -110,9 +120,9 @@ export default function Navbar() {
               <Link href="/academy" className="text-white hover:text-royal-gold text-xs font-bold tracking-[0.2em] flex items-center gap-1 transition-all">
                 ACADEMY <span className="text-[8px] opacity-50">▼</span>
               </Link>
-              <div className="absolute top-full left-0 w-48 bg-royal-purple/95 backdrop-blur-xl border border-royal-gold/20 rounded-xl shadow-2xl p-2 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+              <div className="absolute top-full left-0 w-52 bg-royal-purple/95 backdrop-blur-xl border border-royal-gold/20 rounded-xl shadow-2xl p-2 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                 {menuData.academy.map((item) => (
-                  <Link key={item.id} href={`/academy#${item.id}`} className="block px-4 py-2 text-[10px] text-white hover:bg-white/10 hover:text-royal-gold rounded-lg transition-all tracking-widest font-bold">
+                  <Link key={item.name} href={`/academy#${item.id}`} className="block px-4 py-2 text-[10px] text-white hover:bg-white/10 hover:text-royal-gold rounded-lg transition-all tracking-widest font-bold">
                     {item.name.toUpperCase()}
                   </Link>
                 ))}
@@ -142,9 +152,11 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-1/2 w-0 h-[1.5px] bg-royal-gold transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </Link>
 
-            <button className="relative overflow-hidden bg-royal-gold text-royal-purple px-7 py-2.5 rounded-full text-[10px] font-black tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95 group">
-              <span className="relative z-10 uppercase">Enroll Now</span>
-            </button>
+            <Link href="/academy#enroll">
+              <button className="relative overflow-hidden bg-royal-gold text-royal-purple px-7 py-2.5 rounded-full text-[10px] font-black tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95 group">
+                <span className="relative z-10 uppercase">Enroll Now</span>
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Button */}
@@ -172,7 +184,7 @@ export default function Navbar() {
       }`}>
         <div className="flex flex-col h-full overflow-y-auto pt-4 pb-8 px-8">
 
-          {/* ===== Sidebar Header (Logo + Close) ===== */}
+          {/* Sidebar Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <img
@@ -228,7 +240,7 @@ export default function Navbar() {
               <div className={`grid transition-all duration-300 ${expandedSection === "academy" ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden space-y-3 pl-4 border-l border-royal-gold/20">
                   {menuData.academy.map(item => (
-                    <Link key={item.id} href={`/academy#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base py-1">
+                    <Link key={item.name} href={`/academy#${item.id}`} onClick={() => setIsMobileMenuOpen(false)} className="block text-white/70 hover:text-royal-gold text-base py-1">
                       {item.name}
                     </Link>
                   ))}
@@ -261,9 +273,11 @@ export default function Navbar() {
           </div>
 
           <div className="mt-auto pt-10">
-            <button className="w-full bg-royal-gold text-royal-purple py-4 rounded-xl font-black tracking-widest text-xs uppercase shadow-xl transition-all active:scale-95">
-              Enroll Now
-            </button>
+            <Link href="/academy#enroll" onClick={() => setIsMobileMenuOpen(false)}>
+              <button className="w-full bg-royal-gold text-royal-purple py-4 rounded-xl font-black tracking-widest text-xs uppercase shadow-xl transition-all active:scale-95">
+                Enroll Now
+              </button>
+            </Link>
             <p className="text-center text-white/30 text-[8px] tracking-[0.4em] uppercase mt-6">
               Royal Touch Beauty Care
             </p>
@@ -274,10 +288,6 @@ export default function Navbar() {
     </>
   );
 }
-
-
-
-
 
 // "use client";
 // import React, { useState, useEffect } from "react";

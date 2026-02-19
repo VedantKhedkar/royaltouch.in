@@ -1,10 +1,46 @@
 "use client";
 
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapPin, Phone, Mail, Send, Instagram, Facebook, Globe } from "lucide-react";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    mobile: "",
+    service: "Bridal Artistry",
+    date: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const whatsappNumber = "919685232913"; // Using the number from your contact info
+    
+    const whatsappMessage = `Dear Team Royal Touch Beauty Care & Academy,
+
+      I recently visited your website and would like to meet personally for a one-on-one interaction. 
+
+      Please confirm my appointment for the given date and time. For your reference, I have shared my details below: 
+
+*Full Name:* ${formData.fullName}
+*Mobile No.:* ${formData.mobile}
+*Service :* ${formData.service}
+*Preferred Date:* ${formData.date}
+*Message:* ${formData.message}
+
+      Thank you.`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF9F6] font-sans overflow-x-hidden selection:bg-royal-purple selection:text-white">
       <Navbar />
@@ -37,7 +73,7 @@ export default function ContactPage() {
               Book Appointment
             </h2>
 
-            <form className="space-y-5 md:space-y-8 flex-grow flex flex-col justify-between">
+            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-8 flex-grow flex flex-col justify-between">
               <div className="space-y-5 md:space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <div>
@@ -45,7 +81,11 @@ export default function ContactPage() {
                       Full Name
                     </label>
                     <input
+                      required
                       type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       placeholder="Your Name"
                       className="w-full bg-transparent border-b border-slate-200 py-2 outline-none focus:border-royal-purple text-royal-purple font-semibold placeholder:text-slate-300 text-sm"
                     />
@@ -53,25 +93,51 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-royal-purple text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-2">
-                      Phone
+                     Mobile
                     </label>
                     <input
+                      required
                       type="tel"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleChange}
                       placeholder="+91"
                       className="w-full bg-transparent border-b border-slate-200 py-2 outline-none focus:border-royal-purple text-royal-purple font-semibold placeholder:text-slate-300 text-sm"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-royal-purple text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-2">
-                    Service
-                  </label>
-                  <select className="w-full bg-transparent border-b border-slate-200 py-2 outline-none focus:border-royal-purple text-royal-purple font-semibold uppercase text-xs md:text-sm">
-                    <option>Bridal Artistry</option>
-                    <option>Academy Enrollment</option>
-                    <option>Studio Services</option>
-                  </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                  <div>
+                    <label className="block text-royal-purple text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-2">
+                      Preferred Date & Time
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      placeholder="e.g. Oct 25, 10:00 AM"
+                      className="w-full bg-transparent border-b border-slate-200 py-2 outline-none focus:border-royal-purple text-royal-purple font-semibold placeholder:text-slate-300 text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-royal-purple text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-2">
+                      Service
+                    </label>
+                    <select 
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-slate-200 py-2 outline-none focus:border-royal-purple text-royal-purple font-semibold uppercase text-xs md:text-sm"
+                    >
+                      <option value="Bridal Artistry">Bridal Artistry</option>
+                      <option value="Academy Enrollment">Academy Enrollment</option>
+                      <option value="Studio Services">Studio Services</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
@@ -80,6 +146,9 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={3}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Describe your requirement..."
                     className="w-full bg-[#FAF9F6] border border-slate-200 p-3 md:p-4 outline-none focus:border-royal-purple text-royal-purple font-semibold resize-none placeholder:text-slate-300 rounded-lg text-sm"
                   />
@@ -101,14 +170,14 @@ export default function ContactPage() {
               <h3 className="text-royal-purple font-extrabold font-serif text-xl sm:text-2xl md:text-3xl uppercase tracking-tight mb-3">
                 Visit Us
               </h3>
-              <p className="text-slate-500 text-[11px] md:text-sm mb-6 md:mb-8 leading-relaxed italic">
+              <p className="text-slate-500 text-[11px] md:sm mb-6 md:mb-8 leading-relaxed italic">
                 Experience the royal touch in person. Our doors are open for consultations.
               </p>
 
               <div className="w-full h-[220px] md:h-auto md:flex-grow md:min-h-[300px] overflow-hidden rounded-xl border border-slate-200 relative">
                 <iframe
                   title="Royal Touch Academy Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.123456789!2d77.123456!3d20.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDA3JzM0LjUiTiA3N8KwMDcnMzQuNSJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14902.93605251458!2d77.740880!3d20.923053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a4a66f68593d%3A0xc66060c57c4c4786!2sMoti%20Nagar%2C%20Amravati%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
                   className="absolute inset-0 w-full h-full border-0"
                   loading="lazy"
                 />
@@ -148,7 +217,7 @@ export default function ContactPage() {
                 <h4 className="text-royal-gold text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] mb-3 md:mb-4">Official Location</h4>
                 <div className="flex items-start gap-3 md:gap-4">
                   <MapPin className="text-royal-purple mt-1 shrink-0" size={18} />
-                  <p className="text-royal-purple font-serif text-base sm:text-lg md:text-2xl uppercase tracking-tight leading-tight">
+                  <p className="text-royal-purple font-serif text-base sm:text-lg md:text-2xl tracking-tight leading-tight">
                     Moti Nagar, Near Vadhu Var <br className="hidden sm:block" /> Maratha Kendra, Amravati
                   </p>
                 </div>
@@ -163,7 +232,7 @@ export default function ContactPage() {
                   </a>
                   <a href="mailto:royaltouchbeauty@gmail.com" className="flex items-center gap-3 md:gap-4 group break-all">
                     <Mail className="text-royal-purple group-hover:text-royal-gold transition-colors" size={18} />
-                    <span className="text-royal-purple font-sans font-bold text-xs sm:text-sm md:text-lg uppercase">
+                    <span className="text-royal-purple font-sans font-bold text-xs sm:text-sm md:text-lg ">
                       royaltouchbeauty@gmail.com
                     </span>
                   </a>
@@ -182,14 +251,10 @@ export default function ContactPage() {
                   className="flex items-center gap-3 md:gap-4 group mb-4"
                 >
                   <Instagram className="text-royal-purple group-hover:text-royal-gold transition-colors" size={18} />
-                  <span className="text-royal-purple font-serif text-base sm:text-lg md:text-2xl tracking-tight uppercase">
+                  <span className="text-royal-purple font-serif text-base sm:text-lg md:text-2xl tracking-tight ">
                     @royaltouchbeautycare
                   </span>
                 </a>
-                <div className="flex items-center gap-3 md:gap-4">
-                  <Globe className="text-royal-purple" size={18} />
-                  <span className="text-royal-purple font-sans font-bold text-sm md:text-lg">royaltouchbeauty.in</span>
-                </div>
               </div>
 
               <div>
@@ -197,7 +262,7 @@ export default function ContactPage() {
                 <p className="text-royal-purple font-serif text-xl sm:text-2xl md:text-4xl uppercase tracking-tighter leading-none">
                   Pooja Mankar
                 </p>
-                <p className="text-slate-400 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-2">
+                <p className="text-slate-800 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-2">
                   Professional Makeup Artist
                 </p>
               </div>

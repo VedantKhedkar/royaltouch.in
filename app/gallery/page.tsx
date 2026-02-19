@@ -120,50 +120,105 @@ function GalleryContent() {
 
         {/* --- DYNAMIC SECTION HEADING --- */}
         <div className="mb-12 px-2">
-            <h2 className="text-royal-purple font-serif text-4xl md:text-6xl uppercase tracking-tighter transition-all duration-700">
-                {active === "VIEW ALL" ? "Masterpiece Collection" : active}
-                <span className="text-royal-gold block text-[11px] md:text-[13px] font-sans font-black tracking-[0.6em] mt-4 uppercase">
-                    Redefining Elegance
-                </span>
-            </h2>
+          <h2 className="text-royal-purple font-serif text-4xl md:text-6xl uppercase tracking-tighter transition-all duration-700">
+            {active === "VIEW ALL" ? "Masterpiece Collection" : active}
+            <span className="text-royal-gold block text-[11px] md:text-[13px] font-sans font-black tracking-[0.6em] mt-4 uppercase">
+              Redefining Elegance
+            </span>
+          </h2>
         </div>
 
         {/* --- IMAGE GRID --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {displayImages.map((img) => (
-            <div 
-              key={img.id} 
-              onClick={() => setSelectedImg(img.url)}
-              className={`group relative rounded-2xl overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-700 cursor-pointer
-                ${img.orientation === 'landscape' ? 'sm:col-span-2 lg:col-span-1 aspect-video lg:aspect-[4/5]' : 'aspect-[4/5]'}`}
-            >
-              {/* Image: Zoom/Fade effects removed for stability */}
-              <img 
-                src={img.url} 
-                alt={img.title} 
-                className="w-full h-full object-cover transition-transform duration-700" 
-              />
-              
-              {/* Central View Button */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none">
-                <div className="bg-white/95 backdrop-blur-md text-royal-purple px-6 py-3 rounded-full flex items-center gap-3 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-[10px] font-black uppercase tracking-widest">View Transformation</span>
-                  <div className="w-8 h-8 rounded-full bg-royal-gold flex items-center justify-center text-royal-purple">
-                     <Plus size={14} />
+        {active === "TRANSFORMATIONS" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
+            {(() => {
+              const pairs: GalleryImage[][] = [];
+              for (let i = 0; i < displayImages.length; i += 2) {
+                pairs.push(displayImages.slice(i, i + 2));
+              }
+
+              return pairs.map((pair, idx) => (
+                <div key={idx} className="relative p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-royal-purple/5 to-royal-gold/5 border border-royal-gold/20 shadow-inner">
+                  {/* Visual Background Element to show grouping */}
+                  <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-[2.5rem] -z-10" />
+                  
+                  <div className="grid grid-cols-2 gap-4 md:gap-6 relative">
+                    {pair.map((img, imgIdx) => (
+                      <div 
+                        key={img.id} 
+                        onClick={() => setSelectedImg(img.url)}
+                        className="group relative rounded-2xl overflow-hidden bg-white shadow-xl transition-all duration-700 cursor-pointer aspect-[4/5]"
+                      >
+                        {/* Before/After Label */}
+                        <div className="absolute top-3 left-3 z-30">
+                          <span className="bg-royal-purple text-royal-gold text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full border border-royal-gold/30 shadow-lg">
+                            {imgIdx === 0 ? "Before" : "After"}
+                          </span>
+                        </div>
+
+                        <img 
+                          src={img.url} 
+                          alt={img.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        />
+
+                        {/* Central View Button */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                          <div className="bg-white/95 backdrop-blur-md text-royal-purple p-3 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                             <Plus size={20} />
+                          </div>
+                        </div>
+
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Sub-label for the pair */}
+                  <div className="mt-6 text-center">
+                    <p className="text-royal-purple font-sans font-black text-[10px] tracking-[0.4em] uppercase opacity-60">
+                      Transformation Series • {pair[0].title.split('-')[0]}
+                    </p>
                   </div>
                 </div>
-              </div>
+              ));
+            })()}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            {displayImages.map((img) => (
+              <div 
+                key={img.id} 
+                onClick={() => setSelectedImg(img.url)}
+                className={`group relative rounded-2xl overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-700 cursor-pointer
+                  ${img.orientation === 'landscape' ? 'sm:col-span-2 lg:col-span-1 aspect-video lg:aspect-[4/5]' : 'aspect-[4/5]'}`}
+              >
+                <img 
+                  src={img.url} 
+                  alt={img.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                />
+                
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                  <div className="bg-white/95 backdrop-blur-md text-royal-purple px-6 py-3 rounded-full flex items-center gap-3 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <span className="text-[10px] font-black uppercase tracking-widest">View Masterpiece</span>
+                    <div className="w-8 h-8 rounded-full bg-royal-gold flex items-center justify-center text-royal-purple">
+                      <Plus size={14} />
+                    </div>
+                  </div>
+                </div>
 
-              {/* Bottom Gradient Overlay */}
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
-              {/* Tag below image on hover */}
-              <div className="absolute bottom-4 left-4 right-4 p-4 bg-white/95 backdrop-blur shadow-xl translate-y-[160%] group-hover:translate-y-0 transition-transform duration-500 rounded-lg z-20">
-                 <p className="text-royal-purple font-sans font-black text-[9px] tracking-widest uppercase text-center">Amravati Studio • {img.title}</p>
+                <div className="absolute bottom-4 left-4 right-4 p-4 bg-white/95 backdrop-blur shadow-xl translate-y-[160%] group-hover:translate-y-0 transition-transform duration-500 rounded-lg z-20">
+                  <p className="text-royal-purple font-sans font-black text-[9px] tracking-widest uppercase text-center">
+                    Amravati Studio • {img.title}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* --- FULLSCREEN LIGHTBOX --- */}
@@ -187,7 +242,9 @@ function GalleryContent() {
             >
               <img src={selectedImg} alt="Full Preview" className="max-w-full max-h-full object-contain shadow-2xl rounded-lg" />
               <div className="absolute -bottom-8 text-center w-full">
-                 <p className="text-royal-gold/40 text-[9px] font-black tracking-[0.8em] uppercase">Royal Touch Artistry • Amravati</p>
+                <p className="text-royal-gold/40 text-[9px] font-black tracking-[0.8em] uppercase">
+                  Royal Touch Artistry • Amravati
+                </p>
               </div>
             </motion.div>
           </motion.div>

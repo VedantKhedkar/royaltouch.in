@@ -150,7 +150,7 @@ Thank you.`;
                   <div className="absolute -top-10 -left-10 text-[18rem] font-serif text-slate-50 select-none z-0 leading-none">P</div>
                   <div className="relative z-10 w-full h-full bg-[#1A0B21] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.15)] rounded-2xl">
                     <img 
-                      src="https://images.unsplash.com/photo-1522338223523-decac27515c3?q=80&w=1000" 
+                      src="./images/academy.png" 
                       alt="Academy" 
                       className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"
                     />

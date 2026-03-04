@@ -61,26 +61,35 @@ const fbVideos = [
               student trained with purpose.
             </p>
 
-            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20">
+          <div className="mt-6 md:mt-10 py-4 md:py-8 border-t border-b border-gray-100/50">
+            <div className="grid grid-cols-2 md:flex md:flex-row items-center justify-center gap-y-6 gap-x-4 md:gap-20">
+              
+              {/* Years Experience */}
               <div className="text-center group">
-                <div className="text-3xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">9+</div>
-                <p className="text-[9px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-1">
+                <div className="text-2xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">9+</div>
+                <p className="text-[8px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-0.5">
                   Years Experience
                 </p>
               </div>
+
+              {/* Bridal Clients */}
               <div className="text-center group">
-                <div className="text-3xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">500+</div>
-                <p className="text-[9px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-1">
+                <div className="text-2xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">500+</div>
+                <p className="text-[8px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-0.5">
                   Bridal Clients
                 </p>
               </div>
-              <div className="text-center group">
-                <div className="text-3xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">1000+</div>
-                <p className="text-[9px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-1">
+
+              {/* Students Trained - Centered on mobile across both columns */}
+              <div className="text-center group col-span-2 md:col-span-1">
+                <div className="text-2xl md:text-4xl font-serif text-royal-purple group-hover:text-royal-gold transition-colors">1000+</div>
+                <p className="text-[8px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-0.5">
                   Students Trained
                 </p>
               </div>
+
             </div>
+          </div>
           </div>
         </section>
 
@@ -99,8 +108,9 @@ const fbVideos = [
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               {[
                 { title: "Royal Bridal", desc: "High-definition bridal makeup, custom hairstyles, and luxury pre-wedding grooming." },
-                { title: "Pro Academy", desc: "Career-focused beautician and makeup courses with practical industry training." },
                 { title: "Studio Services", desc: "Party makeup, skin treatments, hair care, and personal styling sessions." },
+                { title: "Pro Academy", desc: "Career-focused beautician and makeup courses with practical industry training." },
+          
               ].map((item, i) => (
                 <div key={i} className="group p-8 md:p-10 border border-white/10 hover:border-royal-gold transition-all bg-white/5 backdrop-blur-sm relative overflow-hidden">
                   <h3 className="text-2xl font-serif mb-4 md:mb-6 group-hover:text-royal-gold transition-colors">{item.title}</h3>

@@ -13,7 +13,7 @@ const serviceCategories = [
     title: "Makeup",
     highlight: "Services",
     subtitle: "Artistry & Elegance",
-    image: "./images/makeupservices.png",
+    image: "/images/makeupservices.png",
     desc: "Professional makeup services include bridal and event looks tailored to your unique features and occasions.",
     features: ["Bridal Makeup", "HD Makeup", "Airbrush Makeup", "Party Makeup", "Engagement Makeup", "Reception Makeup", "Haldi / Mehendi Makeup", "South Indian Bridal Look", "Nude / Natural Makeup", "Portfolio & Photoshoot Makeup", "Saree Draping & Hair Styling"]
   },
@@ -23,7 +23,7 @@ const serviceCategories = [
     title: "Skin Care &",
     highlight: "Facials",
     subtitle: "Radiant Glow",
-    image: "./images/skincare.png",
+    image: "/images/skincare.png",
     desc: "Advanced facials and skin treatments designed to improve glow, treat acne, and reduce pigmentation.",
     features: ["Basic Cleanup", "Gold Facial", "Diamond Facial", "Pearl Facial", "Anti-Tan Facial", "Acne Treatment Facial", "Pigmentation Treatment", "Skin Brightening Treatment", "Anti-Ageing Facial", "Hydrating Facial (Dry Skin)", "Oily Skin Treatment", "Chemical Peel Treatment", "Hydrafacial", "Skin Polishing"]
   },
@@ -33,7 +33,7 @@ const serviceCategories = [
     title: "Advanced",
     highlight: "Skin Clinic",
     subtitle: "Clinical Care",
-    image: "./images/skinclinic.png",
+    image: "/images/skinclinic.png",
     desc: "Targeted therapy for specific skin concerns using modern dermatological approaches.",
     features: ["Acne & Pimple Treatment", "Dark Circle Treatment", "Open Pores Treatment", "Skin Whitening Therapy", "Detan Therapy", "Microdermabrasion", "Body Polishing"]
   },
@@ -43,7 +43,7 @@ const serviceCategories = [
     title: "Hair",
     highlight: "Studio",
     subtitle: "The Hair Street",
-    image: "./images/hairstudio.png",
+    image: "/images/hairstudio.png",
     desc: "From precision cuts to chemical smoothing, we improve hair health and manageability.",
     features: ["Hair Cutting", "Hair Styling & Blow Dry", "Hair Spa", "Hair Smoothening", "Hair Straightening / Rebonding", "Keratin Treatment", "Hair Botox", "Hair Colour (Global / Highlights)", "Root Touch-Up", "Hair Fall Treatment", "Dandruff Treatment"]
   },
@@ -53,7 +53,7 @@ const serviceCategories = [
     title: "Scalp",
     highlight: "Therapy",
     subtitle: "Deep Care",
-    image: "./images/scalptherapy.png",
+    image: "/images/scalptherapy.png",
     desc: "Revitalize your roots with our deep conditioning and detox therapies.",
     features: ["Deep Conditioning Therapy", "Dry & Damaged Hair Repair", "Scalp Detox", "Oil Therapy & Massage"]
   },
@@ -73,7 +73,7 @@ const serviceCategories = [
     title: "Nail",
     highlight: "Artistry",
     subtitle: "Glamour Tips",
-    image: "./images/nailartisty.png",
+    image: "/images/nailartisty.png",
     desc: "Elevate your look with custom extensions and sophisticated nail art designs.",
     features: ["Nail Art", "Gel Polish", "Nail Extensions", "French Nails"]
   },
@@ -83,7 +83,7 @@ const serviceCategories = [
     title: "Hair",
     highlight: "Removal",
     subtitle: "Smooth Skin",
-    image: "./images/hairremoval.png",
+    image: "/images/hairremoval.png",
     desc: "Essential grooming services using premium waxes for a smooth, painless finish.",
     features: ["Full Body Wax", "Rica Wax / Chocolate Wax", "Underarms Wax", "Face Wax", "Bikini Wax", "Threading (Full Face)"]
   },
@@ -93,7 +93,7 @@ const serviceCategories = [
     title: "Eye &",
     highlight: "Brow",
     subtitle: "The Perfect Frame",
-    image: "./images/eyebrow.png",
+    image: "/images/eyebrow.png",
     desc: "Enhance your gaze with professional shaping and lash extensions.",
     features: ["Eyebrow Shaping", "Eyelash Extensions", "Lash Lifting", "Eyebrow Tinting", "Microblading"]
   },
@@ -103,7 +103,7 @@ const serviceCategories = [
     title: "Bridal",
     highlight: "Packages",
     subtitle: "Pre-Wedding Luxury",
-    image: "./images/bridalpackages.png",
+    image: "/images/bridalpackages.png",
     desc: "Complete pre-bridal skin and body care to prepare you for your royal debut.",
     features: ["Full Pre-Bridal Skin Care", "Body Polishing", "Hair Spa & Grooming", "Bridal Makeup & Hairstyling", "Saree / Dupatta Draping"]
   },
@@ -113,7 +113,7 @@ const serviceCategories = [
     title: "Special",
     highlight: "Treatments",
     subtitle: "Wellness Hub",
-    image: "./images/specialtreatment.png",
+    image: "/images/specialtreatment.png",
     desc: "Stress relief and relaxation therapies to rejuvenate your mind and body.",
     features: ["Body Spa & Relaxation Massage", "Aroma Therapy", "Stress Relief Head Massage"]
   }

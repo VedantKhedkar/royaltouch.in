@@ -206,13 +206,13 @@ const fbVideos = [
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
               <a
-                href="https://wa.me/91XXXXXXXXXX"
+                href="https://wa.me/919685232913"
                 className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-royal-gold text-royal-purple font-black tracking-widest text-[10px] hover:scale-105 transition-transform"
               >
                 <FaWhatsapp size={16}/> WHATSAPP US
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/royaltouchbeautycare.academy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 border border-white/20 text-white font-black tracking-widest text-[10px] hover:border-royal-gold hover:text-royal-gold transition-all"
               >
                 <FaInstagram size={16}/> INSTAGRAM

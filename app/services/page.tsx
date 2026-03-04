@@ -180,8 +180,9 @@ Thank you.`;
           {serviceCategories.map((service, i) => (
             <div 
               key={service.id} 
-              id={service.sectionId}
-              className={`flex flex-col lg:flex-row gap-16 items-start mb-40 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+              id={service.sectionId} 
+              /* Added scroll-mt-24 to ensure the section header isn't cut off by the navbar on redirect */
+              className={`flex flex-col lg:flex-row gap-16 items-start mb-40 last:mb-0 scroll-mt-24 lg:scroll-mt-32 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
             >
               {/* Simplified Image Card */}
               <div className="w-full lg:w-1/3 aspect-square bg-royal-purple relative overflow-hidden shadow-2xl rounded-2xl flex-shrink-0 group">

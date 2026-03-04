@@ -13,7 +13,7 @@ const serviceCategories = [
     title: "Makeup",
     highlight: "Services",
     subtitle: "Artistry & Elegance",
-    image: "/images/makeupservices.png",
+    image: "/makeupservices.png",
     desc: "Professional makeup services include bridal and event looks tailored to your unique features and occasions.",
     features: ["Bridal Makeup", "HD Makeup", "Airbrush Makeup", "Party Makeup", "Engagement Makeup", "Reception Makeup", "Haldi / Mehendi Makeup", "South Indian Bridal Look", "Nude / Natural Makeup", "Portfolio & Photoshoot Makeup", "Saree Draping & Hair Styling"]
   },
@@ -23,7 +23,7 @@ const serviceCategories = [
     title: "Skin Care &",
     highlight: "Facials",
     subtitle: "Radiant Glow",
-    image: "/images/skincare.png",
+    image: "/skincare.png",
     desc: "Advanced facials and skin treatments designed to improve glow, treat acne, and reduce pigmentation.",
     features: ["Basic Cleanup", "Gold Facial", "Diamond Facial", "Pearl Facial", "Anti-Tan Facial", "Acne Treatment Facial", "Pigmentation Treatment", "Skin Brightening Treatment", "Anti-Ageing Facial", "Hydrating Facial (Dry Skin)", "Oily Skin Treatment", "Chemical Peel Treatment", "Hydrafacial", "Skin Polishing"]
   },
@@ -33,7 +33,7 @@ const serviceCategories = [
     title: "Advanced",
     highlight: "Skin Clinic",
     subtitle: "Clinical Care",
-    image: "/images/skinclinic.png",
+    image: "/skinclinic.png",
     desc: "Targeted therapy for specific skin concerns using modern dermatological approaches.",
     features: ["Acne & Pimple Treatment", "Dark Circle Treatment", "Open Pores Treatment", "Skin Whitening Therapy", "Detan Therapy", "Microdermabrasion", "Body Polishing"]
   },
@@ -43,7 +43,7 @@ const serviceCategories = [
     title: "Hair",
     highlight: "Studio",
     subtitle: "The Hair Street",
-    image: "/images/hairstudio.png",
+    image: "/hairstudio.png",
     desc: "From precision cuts to chemical smoothing, we improve hair health and manageability.",
     features: ["Hair Cutting", "Hair Styling & Blow Dry", "Hair Spa", "Hair Smoothening", "Hair Straightening / Rebonding", "Keratin Treatment", "Hair Botox", "Hair Colour (Global / Highlights)", "Root Touch-Up", "Hair Fall Treatment", "Dandruff Treatment"]
   },
@@ -53,7 +53,7 @@ const serviceCategories = [
     title: "Scalp",
     highlight: "Therapy",
     subtitle: "Deep Care",
-    image: "/images/scalptherapy.png",
+    image: "/scalptherapy.png",
     desc: "Revitalize your roots with our deep conditioning and detox therapies.",
     features: ["Deep Conditioning Therapy", "Dry & Damaged Hair Repair", "Scalp Detox", "Oil Therapy & Massage"]
   },
@@ -63,7 +63,7 @@ const serviceCategories = [
     title: "Hand &",
     highlight: "Foot Care",
     subtitle: "Pure Relaxation",
-    image: "/images/handfoot.png",
+    image: "/handfoot.png",
     desc: "Comprehensive grooming for hands and feet, including therapeutic spa treatments.",
     features: ["Manicure", "Pedicure", "Spa Manicure & Pedicure", "Detan Pedicure", "Heel Crack Treatment", "Nail Shaping & Polish"]
   },
@@ -73,7 +73,7 @@ const serviceCategories = [
     title: "Nail",
     highlight: "Artistry",
     subtitle: "Glamour Tips",
-    image: "/images/nailartisty.png",
+    image: "/nailartisty.png",
     desc: "Elevate your look with custom extensions and sophisticated nail art designs.",
     features: ["Nail Art", "Gel Polish", "Nail Extensions", "French Nails"]
   },
@@ -83,7 +83,7 @@ const serviceCategories = [
     title: "Hair",
     highlight: "Removal",
     subtitle: "Smooth Skin",
-    image: "/images/hairremoval.png",
+    image: "/hairremoval.png",
     desc: "Essential grooming services using premium waxes for a smooth, painless finish.",
     features: ["Full Body Wax", "Rica Wax / Chocolate Wax", "Underarms Wax", "Face Wax", "Bikini Wax", "Threading (Full Face)"]
   },
@@ -93,7 +93,7 @@ const serviceCategories = [
     title: "Eye &",
     highlight: "Brow",
     subtitle: "The Perfect Frame",
-    image: "/images/eyebrow.png",
+    image: "/eyebrow.png",
     desc: "Enhance your gaze with professional shaping and lash extensions.",
     features: ["Eyebrow Shaping", "Eyelash Extensions", "Lash Lifting", "Eyebrow Tinting", "Microblading"]
   },
@@ -103,7 +103,7 @@ const serviceCategories = [
     title: "Bridal",
     highlight: "Packages",
     subtitle: "Pre-Wedding Luxury",
-    image: "/images/bridalpackages.png",
+    image: "/bridalpackages.png",
     desc: "Complete pre-bridal skin and body care to prepare you for your royal debut.",
     features: ["Full Pre-Bridal Skin Care", "Body Polishing", "Hair Spa & Grooming", "Bridal Makeup & Hairstyling", "Saree / Dupatta Draping"]
   },
@@ -113,7 +113,7 @@ const serviceCategories = [
     title: "Special",
     highlight: "Treatments",
     subtitle: "Wellness Hub",
-    image: "/images/specialtreatment.png",
+    image: "/specialtreatment.png",
     desc: "Stress relief and relaxation therapies to rejuvenate your mind and body.",
     features: ["Body Spa & Relaxation Massage", "Aroma Therapy", "Stress Relief Head Massage"]
   }
@@ -137,7 +137,17 @@ export default function ServicesPage() {
     }
 
     const selectedItemsList = relevantSelections.map(s => `✅ ${s}`).join('\n');
-    const message = `Dear Team Royal Touch Beauty Care & Academy,\n\nI am interested in the following services from ${categoryTitle}:\n${selectedItemsList}\n\nKindly guide me through the next steps for booking.\n\nThank you.`;
+    
+    const message = `Dear Team Royal Touch Beauty Care & Academy,
+
+I recently visited your website and I am interested in the following service:
+
+*Service Name:* ${categoryTitle}
+${selectedItemsList}
+
+Kindly guide me through the next steps for registration and payment.
+
+Thank you.`;
     
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
@@ -147,7 +157,7 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      <section id="welcome" className="relative h-[60vh] flex items-center px-6 overflow-hidden bg-royal-purple">
+      <section id="welcome" className="relative h-[80vh] flex items-center px-6 overflow-hidden bg-royal-purple">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 transition-transform duration-[3000ms] scale-110"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2074&auto=format&fit=crop')` }}
@@ -156,7 +166,7 @@ export default function ServicesPage() {
             <span className="text-royal-gold tracking-[0.6em] text-[12px] font-black uppercase mb-4 block">
                 Royal Touch Beauty Care
             </span>
-            <h1 className="text-white text-5xl sm:text-7xl md:text-8xl font-serif leading-[0.85] uppercase tracking-tighter">
+            <h1 className="text-white text-5xl sm:text-7xl md:text-[7rem] font-serif leading-[0.85] uppercase tracking-tighter">
               Service <br />
               <span className="text-royal-gold">Catalog</span>
             </h1>
@@ -165,29 +175,24 @@ export default function ServicesPage() {
       </section>
 
       {/* --- SERVICES LIST --- */}
-      <section id="offerings" className="py-32 px-6">
+      <section id="offerings" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           {serviceCategories.map((service, i) => (
             <div 
               key={service.id} 
               id={service.sectionId}
-              className={`flex flex-col lg:flex-row gap-12 lg:gap-24 items-center mb-48 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+              className={`flex flex-col lg:flex-row gap-16 items-start mb-40 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
             >
-              {/* IMAGE CONTAINER - Sized for medium devices */}
-              <div className="w-full lg:w-2/5 aspect-[4/5] bg-royal-purple/5 relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-[2.5rem] flex-shrink-0 group border border-royal-gold/10">
-                 <img 
-                    src={service.image} 
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    onError={(e) => {
-                        e.currentTarget.src = "https://placehold.co/600x800/3D1D4B/D4AF37?text=Royal+Touch";
-                    }}
+              {/* Simplified Image Card */}
+              <div className="w-full lg:w-1/3 aspect-square bg-royal-purple relative overflow-hidden shadow-2xl rounded-2xl flex-shrink-0 group">
+                 <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style={{ backgroundImage: `url('${service.image}')` }}
                  />
-                 <div className="absolute inset-0 bg-gradient-to-t from-royal-purple/40 to-transparent opacity-60" />
               </div>
 
-              {/* CONTENT AREA */}
-              <div className="w-full lg:w-3/5 text-center lg:text-left">
+              {/* Selection Content */}
+              <div className="w-full lg:w-2/3 pt-4">
                 <div className="flex items-center gap-4 mb-6 justify-center lg:justify-start">
                     <div className="w-2 h-2 bg-royal-gold rotate-45" />
                     <span className="text-royal-purple font-black tracking-[0.5em] text-[10px] uppercase">
@@ -195,28 +200,28 @@ export default function ServicesPage() {
                     </span>
                 </div>
 
-                <h2 className="text-4xl md:text-6xl font-serif text-royal-purple mb-6 leading-tight uppercase tracking-tight">
-                  {service.title} <br /> <span className="text-royal-gold">{service.highlight}</span>
+                <h2 className="text-4xl md:text-6xl font-serif text-royal-purple mb-6 leading-tight uppercase tracking-tighter text-center lg:text-left">
+                  {service.title} <span className="text-royal-gold">{service.highlight}</span>
                 </h2>
 
-                <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-10 max-w-xl font-light italic mx-auto lg:ml-0">
+                <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-8 max-w-xl font-light italic text-center lg:text-left mx-auto lg:ml-0">
                   {service.desc}
                 </p>
 
-                {/* SELECTION GRID */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12 py-10 border-y border-slate-100">
+                {/* CHECKBOXES */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6 mb-10 py-8 border-y border-slate-100">
                   {service.features.map((feature) => {
                     const isSelected = selectedServices.includes(feature);
                     return (
                       <div 
                         key={feature} 
                         onClick={() => toggleService(feature)}
-                        className="flex items-center gap-4 group/feat cursor-pointer select-none"
+                        className="flex items-center gap-3 group/feat cursor-pointer"
                       >
                         <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all flex-shrink-0 ${isSelected ? 'bg-royal-purple border-royal-purple shadow-md' : 'border-slate-300 bg-white group-hover/feat:border-royal-gold'}`}>
                           {isSelected && <Check className="w-3 h-3 text-royal-gold" strokeWidth={4} />}
                         </div>
-                        <span className={`text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase transition-colors text-left ${isSelected ? 'text-royal-purple font-black' : 'text-slate-400'}`}>
+                        <span className={`text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase transition-colors ${isSelected ? 'text-royal-purple' : 'text-royal-purple/50'}`}>
                           {feature}
                         </span>
                       </div>
@@ -227,10 +232,11 @@ export default function ServicesPage() {
                 <div className="flex justify-center lg:justify-start">
                     <button 
                       onClick={() => handleWhatsAppSubmit(`${service.title} ${service.highlight}`, service.features)}
-                      className="group relative inline-flex items-center justify-center px-12 py-5 overflow-hidden font-bold rounded-2xl shadow-2xl transition duration-500 ease-out bg-royal-purple hover:bg-black"
+                      className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden font-bold rounded-xl shadow-lg transition duration-300 ease-out"
                     >
-                      <span className="relative text-white text-[10px] font-black tracking-[0.5em] uppercase flex items-center gap-4">
-                        Submit Inquiry
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-royal-purple to-slate-900"></span>
+                      <span className="relative text-white text-[10px] font-black tracking-[0.4em] uppercase flex items-center gap-3">
+                        Submit {service.highlight} Request
                         <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                       </span>
                     </button>

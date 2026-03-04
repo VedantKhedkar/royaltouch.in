@@ -63,7 +63,7 @@ const serviceCategories = [
     title: "Hand &",
     highlight: "Foot Care",
     subtitle: "Pure Relaxation",
-    image: "./images/handfoot.png",
+    image: "/images/handfoot.png",
     desc: "Comprehensive grooming for hands and feet, including therapeutic spa treatments.",
     features: ["Manicure", "Pedicure", "Spa Manicure & Pedicure", "Detan Pedicure", "Heel Crack Treatment", "Nail Shaping & Polish"]
   },
@@ -137,17 +137,7 @@ export default function ServicesPage() {
     }
 
     const selectedItemsList = relevantSelections.map(s => `✅ ${s}`).join('\n');
-    
-    const message = `Dear Team Royal Touch Beauty Care & Academy,
-
-I recently visited your website and I am interested in the following service:
-
-*Service Name:* ${categoryTitle}
-${selectedItemsList}
-
-Kindly guide me through the next steps for registration and payment.
-
-Thank you.`;
+    const message = `Dear Team Royal Touch Beauty Care & Academy,\n\nI am interested in the following services from ${categoryTitle}:\n${selectedItemsList}\n\nKindly guide me through the next steps for booking.\n\nThank you.`;
     
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
@@ -157,7 +147,7 @@ Thank you.`;
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      <section id="welcome" className="relative h-[80vh] flex items-center px-6 overflow-hidden bg-royal-purple">
+      <section id="welcome" className="relative h-[60vh] flex items-center px-6 overflow-hidden bg-royal-purple">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 transition-transform duration-[3000ms] scale-110"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2074&auto=format&fit=crop')` }}
@@ -166,7 +156,7 @@ Thank you.`;
             <span className="text-royal-gold tracking-[0.6em] text-[12px] font-black uppercase mb-4 block">
                 Royal Touch Beauty Care
             </span>
-            <h1 className="text-white text-5xl sm:text-7xl md:text-[7rem] font-serif leading-[0.85] uppercase tracking-tighter">
+            <h1 className="text-white text-5xl sm:text-7xl md:text-8xl font-serif leading-[0.85] uppercase tracking-tighter">
               Service <br />
               <span className="text-royal-gold">Catalog</span>
             </h1>
@@ -175,24 +165,29 @@ Thank you.`;
       </section>
 
       {/* --- SERVICES LIST --- */}
-      <section id="offerings" className="py-24 px-6">
+      <section id="offerings" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           {serviceCategories.map((service, i) => (
             <div 
               key={service.id} 
               id={service.sectionId}
-              className={`flex flex-col lg:flex-row gap-16 items-start mb-40 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+              className={`flex flex-col lg:flex-row gap-12 lg:gap-24 items-center mb-48 last:mb-0 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
             >
-              {/* Simplified Image Card */}
-              <div className="w-full lg:w-1/3 aspect-square bg-royal-purple relative overflow-hidden shadow-2xl rounded-2xl flex-shrink-0 group">
-                 <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url('${service.image}')` }}
+              {/* IMAGE CONTAINER - Sized for medium devices */}
+              <div className="w-full lg:w-2/5 aspect-[4/5] bg-royal-purple/5 relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-[2.5rem] flex-shrink-0 group border border-royal-gold/10">
+                 <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => {
+                        e.currentTarget.src = "https://placehold.co/600x800/3D1D4B/D4AF37?text=Royal+Touch";
+                    }}
                  />
+                 <div className="absolute inset-0 bg-gradient-to-t from-royal-purple/40 to-transparent opacity-60" />
               </div>
 
-              {/* Selection Content */}
-              <div className="w-full lg:w-2/3 pt-4">
+              {/* CONTENT AREA */}
+              <div className="w-full lg:w-3/5 text-center lg:text-left">
                 <div className="flex items-center gap-4 mb-6 justify-center lg:justify-start">
                     <div className="w-2 h-2 bg-royal-gold rotate-45" />
                     <span className="text-royal-purple font-black tracking-[0.5em] text-[10px] uppercase">
@@ -200,28 +195,28 @@ Thank you.`;
                     </span>
                 </div>
 
-                <h2 className="text-4xl md:text-6xl font-serif text-royal-purple mb-6 leading-tight uppercase tracking-tighter text-center lg:text-left">
-                  {service.title} <span className="text-royal-gold">{service.highlight}</span>
+                <h2 className="text-4xl md:text-6xl font-serif text-royal-purple mb-6 leading-tight uppercase tracking-tight">
+                  {service.title} <br /> <span className="text-royal-gold">{service.highlight}</span>
                 </h2>
 
-                <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-8 max-w-xl font-light italic text-center lg:text-left mx-auto lg:ml-0">
+                <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-10 max-w-xl font-light italic mx-auto lg:ml-0">
                   {service.desc}
                 </p>
 
-                {/* CHECKBOXES */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6 mb-10 py-8 border-y border-slate-100">
+                {/* SELECTION GRID */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12 py-10 border-y border-slate-100">
                   {service.features.map((feature) => {
                     const isSelected = selectedServices.includes(feature);
                     return (
                       <div 
                         key={feature} 
                         onClick={() => toggleService(feature)}
-                        className="flex items-center gap-3 group/feat cursor-pointer"
+                        className="flex items-center gap-4 group/feat cursor-pointer select-none"
                       >
                         <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all flex-shrink-0 ${isSelected ? 'bg-royal-purple border-royal-purple shadow-md' : 'border-slate-300 bg-white group-hover/feat:border-royal-gold'}`}>
                           {isSelected && <Check className="w-3 h-3 text-royal-gold" strokeWidth={4} />}
                         </div>
-                        <span className={`text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase transition-colors ${isSelected ? 'text-royal-purple' : 'text-royal-purple/50'}`}>
+                        <span className={`text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase transition-colors text-left ${isSelected ? 'text-royal-purple font-black' : 'text-slate-400'}`}>
                           {feature}
                         </span>
                       </div>
@@ -232,11 +227,10 @@ Thank you.`;
                 <div className="flex justify-center lg:justify-start">
                     <button 
                       onClick={() => handleWhatsAppSubmit(`${service.title} ${service.highlight}`, service.features)}
-                      className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden font-bold rounded-xl shadow-lg transition duration-300 ease-out"
+                      className="group relative inline-flex items-center justify-center px-12 py-5 overflow-hidden font-bold rounded-2xl shadow-2xl transition duration-500 ease-out bg-royal-purple hover:bg-black"
                     >
-                      <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-royal-purple to-slate-900"></span>
-                      <span className="relative text-white text-[10px] font-black tracking-[0.4em] uppercase flex items-center gap-3">
-                        Submit {service.highlight} Request
+                      <span className="relative text-white text-[10px] font-black tracking-[0.5em] uppercase flex items-center gap-4">
+                        Submit Inquiry
                         <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                       </span>
                     </button>
